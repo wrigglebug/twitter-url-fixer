@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"regexp"
 	"strings"
@@ -11,17 +12,14 @@ import (
 )
 
 func main() {
-	// Start the systray
 	systray.Run(onReady, onExit)
 }
 
 func onReady() {
-	// Set the icon for the systray using the embedded icon data
 	systray.SetIcon(iconData)
 	systray.SetTitle("URL Replacer")
 	systray.SetTooltip("Replaces x.com with fixvx.com")
 
-	// Add a quit menu item
 	mQuit := systray.AddMenuItem("Quit", "Quit the application")
 
 	go monitorClipboard()
@@ -44,7 +42,9 @@ func monitorClipboard() {
 		// Read current clipboard content
 		text, err := clipboard.ReadAll()
 		if err != nil {
-			log.Fatalf("Failed to read clipboard: %v", err)
+			log.Printf("Failed to read clipboard: %v", err)
+			time.Sleep(2 * time.Second)
+			continue
 		}
 
 		// Check if the clipboard contains an x.com URL
@@ -56,9 +56,10 @@ func monitorClipboard() {
 
 			// Write the modified text back to the clipboard
 			if err := clipboard.WriteAll(newText); err != nil {
-				log.Fatalf("Failed to write to clipboard: %v", err)
+				log.Printf("Failed to write to clipboard: %v", err)
+			} else {
+				fmt.Println("Replaced x.com URLs with fixvx.com in the clipboard.")
 			}
-
 		}
 
 		// Sleep for a short duration before checking the clipboard again
