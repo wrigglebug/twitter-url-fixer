@@ -7,7 +7,7 @@ Automatically converts x.com links to fixvx.com
  - the script automatically converts it to fixvx.com for embedding in discord
  - it can be closed from the system tray
 ### Building
- ```
+ ```bash
  # clone the repository
  $ https://github.com/wrigglebug/twitter-url-fixer.git
  # install prerequisites
