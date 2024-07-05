@@ -18,7 +18,7 @@ func main() {
 func onReady() {
 	systray.SetIcon(iconData)
 	systray.SetTitle("URL Replacer")
-	systray.SetTooltip("Replaces x.com with fixvx.com")
+	systray.SetTooltip("Replaces x.com and twitter.com links")
 
 	mQuit := systray.AddMenuItem("Quit", "Quit the application")
 
@@ -35,8 +35,9 @@ func onExit() {
 }
 
 func monitorClipboard() {
-	// Regular expression to find x.com URLs
-	re := regexp.MustCompile(`https?://(?:www\.)?x\.com[^\s]*`)
+	// Regular expressions to find x.com and twitter.com URLs
+	reX := regexp.MustCompile(`https?://(?:www\.)?x\.com[^\s]*`)
+	reTwitter := regexp.MustCompile(`https?://(?:www\.)?twitter\.com[^\s]*`)
 
 	for {
 		// Read current clipboard content
@@ -47,22 +48,27 @@ func monitorClipboard() {
 			continue
 		}
 
-		// Check if the clipboard contains an x.com URL
-		if re.MatchString(text) {
-			// Replace x.com with fixvx.com
-			newText := re.ReplaceAllStringFunc(text, func(url string) string {
+		// Replace x.com with fixvx.com
+		if reX.MatchString(text) {
+			text = reX.ReplaceAllStringFunc(text, func(url string) string {
 				return strings.Replace(url, "x.com", "fixvx.com", 1)
 			})
-
-			// Write the modified text back to the clipboard
-			if err := clipboard.WriteAll(newText); err != nil {
-				log.Printf("Failed to write to clipboard: %v", err)
-			} else {
-				fmt.Println("Replaced x.com URLs with fixvx.com in the clipboard.")
-			}
 		}
 
-		// Sleep for a short duration before checking the clipboard again
+		// Replace twitter.com with vxtwitter.com
+		if reTwitter.MatchString(text) {
+			text = reTwitter.ReplaceAllStringFunc(text, func(url string) string {
+				return strings.Replace(url, "twitter.com", "vxtwitter.com", 1)
+			})
+		}
+
+		// Write the modified text back to the clipboard
+		if err := clipboard.WriteAll(text); err != nil {
+			log.Printf("Failed to write to clipboard: %v", err)
+		} else {
+			fmt.Println("Replaced URLs in the clipboard.")
+		}
+
 		time.Sleep(2 * time.Second)
 	}
 }

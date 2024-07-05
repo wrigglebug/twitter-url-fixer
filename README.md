@@ -9,7 +9,7 @@ Automatically converts x.com links to fixvx.com
 ### Building
  ```bash
  # clone the repository
- $ https://github.com/wrigglebug/twitter-url-fixer.git
+ $ git clone https://github.com/wrigglebug/twitter-url-fixer.git
  # install prerequisites
  $ go get github.com/atotto/clipboard
  $ go get github.com/getlantern/systray
