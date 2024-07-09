@@ -69,6 +69,6 @@ func monitorClipboard() {
 			fmt.Println("Replaced URLs in the clipboard.")
 		}
 
-		time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
 	}
 }
