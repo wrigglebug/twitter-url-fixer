@@ -1,11 +1,11 @@
 # twitter-url-fixer
-Automatically converts x.com links to fixvx.com
+Automatically converts twitter / x.com links to vxtwitter / fixvx.com
 
 ### Usage
- - run the executable
- - copy an x.com link
- - the script automatically converts it to fixvx.com for embedding in discord
- - it can be closed from the system tray
+ - [Download the latest release](https://github.com/wrigglebug/twitter-url-fixer/releases/latest/download/twitter-url-fixer.exe)
+ - Run twitter-url-fixer.exe (it runs minimized to your system tray)
+ - Copy a twitter or X.com link
+ - The program will automatically convert the twitter / X links in your clipboard to vxtwitter / fixvx.com for embedding in discord
 ### Building
  ```bash
  # clone the repository
