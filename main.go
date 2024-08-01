@@ -23,8 +23,8 @@ func onReady() {
 	systray.SetTitle("URL Replacer")
 	systray.SetTooltip("Replaces x.com and twitter.com links")
 
-	mQuit := systray.AddMenuItem("Quit", "Quit the application")
 	mToggle := systray.AddMenuItem("Pause Monitoring", "Pause or Resume clipboard monitoring")
+	mQuit := systray.AddMenuItem("Quit", "Quit the application")
 
 	go monitorClipboard()
 
@@ -65,7 +65,7 @@ func monitorClipboard() {
 
 			if reX.MatchString(text) {
 				text = reX.ReplaceAllStringFunc(text, func(url string) string {
-					return strings.Replace(url, "x.com", "fixvx.com", 1)
+					return strings.Replace(url, "x.com", "vxtwitter.com", 1)
 				})
 			}
 
@@ -81,6 +81,6 @@ func monitorClipboard() {
 				fmt.Println("Replaced URLs in the clipboard.")
 			}
 		}
-		time.Sleep(1 * time.Second)
+		time.Sleep(100 * time.Millisecond)
 	}
 }
